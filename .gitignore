@@ -1,0 +1,41 @@
+# CMake and build outputs
+/build/
+/cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Compiled artifacts
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Runtime and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+.cache/
+
+# IDE files
+.idea/
+.vscode/
+
+# Local configuration and secrets
+/config/config.json
+/config/*.local.json
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+
+# Keep public configuration examples
+!/config/config.example.json
