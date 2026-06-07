@@ -10,13 +10,36 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+find_package(nlohmann_json 3.10 REQUIRED)
+
+add_library(campus_core STATIC
+    src/utils/Config.cpp
+)
+
+target_include_directories(campus_core
+    PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
+
+target_link_libraries(campus_core
+    PUBLIC
+        nlohmann_json::nlohmann_json
+)
+
+target_compile_options(campus_core
+    PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+)
+
 add_executable(campus_flash_sale
     src/main.cpp
 )
 
-target_include_directories(campus_flash_sale
+target_link_libraries(campus_flash_sale
     PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+        campus_core
 )
 
 target_compile_options(campus_flash_sale

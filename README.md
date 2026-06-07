@@ -63,12 +63,27 @@ cp config/config.example.json config/config.json
 
 数据库设计和账号说明见 `docs/database-design.md`。
 
-当前 C++ 骨架尚未连接数据库，以下命令仅构建并运行启动程序：
+安装 JSON 配置解析依赖：
+
+```bash
+sudo apt install nlohmann-json3-dev
+```
+
+将 `config/config.json` 中的 `mysql_password` 改为本机 `campus_app`
+密码。该文件已被 Git 忽略，不会提交到仓库。
+
+当前 C++ 程序会读取并校验配置，但尚未连接数据库：
 
 ```bash
 cmake -S . -B build
 cmake --build build
 ./build/campus_flash_sale
+```
+
+也可以显式指定配置文件：
+
+```bash
+./build/campus_flash_sale config/config.example.json
 ```
 
 运行测试：
