@@ -72,7 +72,7 @@ sudo apt install nlohmann-json3-dev
 将 `config/config.json` 中的 `mysql_password` 改为本机 `campus_app`
 密码。该文件已被 Git 忽略，不会提交到仓库。
 
-当前 C++ 程序会读取并校验配置，但尚未连接数据库：
+当前 C++ 程序会读取配置、连接 MySQL，并通过 `SELECT 1` 验证连接：
 
 ```bash
 cmake -S . -B build
@@ -80,10 +80,11 @@ cmake --build build
 ./build/campus_flash_sale
 ```
 
-也可以显式指定配置文件：
+也可以显式指定配置文件，或仅校验配置而不连接数据库：
 
 ```bash
 ./build/campus_flash_sale config/config.example.json
+./build/campus_flash_sale --check-config config/config.example.json
 ```
 
 运行测试：

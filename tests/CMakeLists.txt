@@ -1,11 +1,12 @@
 add_test(
     NAME campus_flash_sale_startup
     COMMAND campus_flash_sale
+        --check-config
         "${PROJECT_SOURCE_DIR}/config/config.example.json"
 )
 
 set_tests_properties(campus_flash_sale_startup PROPERTIES
-    PASS_REGULAR_EXPRESSION "config loaded"
+    PASS_REGULAR_EXPRESSION "config validation successful"
 )
 
 add_executable(config_test
