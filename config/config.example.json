@@ -3,7 +3,7 @@
   "server_port": 8080,
   "mysql_host": "127.0.0.1",
   "mysql_port": 3306,
-  "mysql_user": "campus_flash_sale",
+  "mysql_user": "campus_app",
   "mysql_password": "replace_with_local_password",
   "mysql_database": "campus_flash_sale",
   "thread_pool_size": 8,

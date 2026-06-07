@@ -12,7 +12,7 @@
 - CMake
 - Linux
 - liburing（后续接入）
-- MySQL 8.x 与 MySQL C API（后续接入）
+- MySQL 5.7 与 MySQL C API（后续接入）
 - pthread / `std::thread`
 - HTTP/1.1 与 JSON（后续实现）
 
@@ -50,6 +50,20 @@ config/        配置示例；真实配置不提交
 ```
 
 ## 编译运行
+
+首次运行前，使用 MySQL 管理员账号初始化数据库。执行前必须修改
+`sql/01_create_database.sql` 中的示例密码：
+
+```bash
+mysql -u root -p < sql/01_create_database.sql
+mysql -u root -p < sql/02_schema.sql
+mysql -u root -p < sql/03_seed.sql
+cp config/config.example.json config/config.json
+```
+
+数据库设计和账号说明见 `docs/database-design.md`。
+
+当前 C++ 骨架尚未连接数据库，以下命令仅构建并运行启动程序：
 
 ```bash
 cmake -S . -B build
