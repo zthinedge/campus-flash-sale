@@ -1,4 +1,5 @@
 #include "db/MySqlConnection.h"
+#include "db/Transaction.h"
 #include "utils/Config.h"
 
 #include <exception>
@@ -56,6 +57,18 @@ int main(int argc, char* argv[])
         }
 
         std::cout << "[INFO] MySQL connection verified with SELECT 1" << '\n';
+
+        {
+            campus::db::Transaction transaction(connection);
+            const std::string txCheck = connection.queryScalar("SELECT 1");
+            if (txCheck != "1")
+            {
+                throw std::runtime_error("unexpected transaction check result: " + txCheck);
+            }
+            transaction.commit();
+        }
+
+        std::cout << "[INFO] MySQL transaction wrapper verified" << '\n';
         return 0;
     }
     catch (const std::exception& error)

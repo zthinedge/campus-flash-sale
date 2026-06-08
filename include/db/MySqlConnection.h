@@ -23,9 +23,13 @@ public:
 
     void connect(const utils::Config& config);
     void ping();
+    void execute(const std::string& sql);
     std::string queryScalar(const std::string& sql);
+    unsigned long long affectedRows() const;
 
 private:
+    friend class Transaction;
+
     void close() noexcept;
     void ensureConnected() const;
 

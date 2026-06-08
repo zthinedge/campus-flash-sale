@@ -27,3 +27,19 @@ add_test(
     NAME config_load_example
     COMMAND config_test
 )
+
+if(DEFINED CAMPUS_TEST_CONFIG)
+    add_executable(transaction_test
+        transaction_test.cpp
+    )
+
+    target_link_libraries(transaction_test
+        PRIVATE
+            campus_core
+    )
+
+    add_test(
+        NAME transaction_raii_mysql
+        COMMAND transaction_test "${CAMPUS_TEST_CONFIG}"
+    )
+endif()

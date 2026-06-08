@@ -95,6 +95,21 @@ void MySqlConnection::ping()
     }
 }
 
+void MySqlConnection::execute(const std::string& sql)
+{
+    ensureConnected();
+    if (mysql_query(handle_, sql.c_str()) != 0)
+    {
+        throw mysqlError(handle_, "executing statement");
+    }
+
+    while (mysql_next_result(handle_) == 0)
+    {
+        std::unique_ptr<MYSQL_RES, decltype(&mysql_free_result)> extraResult(
+            mysql_store_result(handle_), &mysql_free_result);
+    }
+}
+
 std::string MySqlConnection::queryScalar(const std::string& sql)
 {
     ensureConnected();
@@ -127,6 +142,12 @@ std::string MySqlConnection::queryScalar(const std::string& sql)
     }
 
     return std::string(row[0], lengths[0]);
+}
+
+unsigned long long MySqlConnection::affectedRows() const
+{
+    ensureConnected();
+    return mysql_affected_rows(handle_);
 }
 
 void MySqlConnection::close() noexcept

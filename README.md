@@ -80,6 +80,8 @@ cmake --build build
 ./build/campus_flash_sale
 ```
 
+启动成功后会额外开启并提交一个只读事务，用于验证 RAII 事务封装。
+
 也可以显式指定配置文件，或仅校验配置而不连接数据库：
 
 ```bash
@@ -90,6 +92,14 @@ cmake --build build
 运行测试：
 
 ```bash
+ctest --test-dir build --output-on-failure
+```
+
+默认测试不依赖本地数据库。若要运行 MySQL 事务集成测试：
+
+```bash
+cmake -S . -B build -DCAMPUS_TEST_CONFIG="$PWD/config/config.json"
+cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 

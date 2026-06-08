@@ -22,6 +22,7 @@ find_library(MYSQLCLIENT_LIBRARY
 
 add_library(campus_core STATIC
     src/db/MySqlConnection.cpp
+    src/db/Transaction.cpp
     src/utils/Config.cpp
 )
 
