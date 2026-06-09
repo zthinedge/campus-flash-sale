@@ -20,6 +20,7 @@ public:
     std::optional<model::Product> findByProductNo(std::string_view productNo);
     std::vector<model::Product> listVisible();
     std::uint64_t create(const model::CreateProduct& input);
+    bool updateStatus(std::uint64_t productId, model::ProductStatus status);
 
 private:
     db::MySqlConnection& connection_;

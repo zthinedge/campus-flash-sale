@@ -73,6 +73,15 @@ std::optional<model::FlashSaleActivity> ActivityDao::findByActivityNo(
         : std::optional<model::FlashSaleActivity>(mapActivity(rows.front()));
 }
 
+std::vector<model::FlashSaleActivity> ActivityDao::listAll()
+{
+    db::PreparedStatement statement(
+        connection_,
+        std::string("SELECT ") + activityColumns
+            + " FROM flash_sale_activities ORDER BY created_at DESC, id DESC");
+    return mapActivities(statement.query());
+}
+
 std::vector<model::FlashSaleActivity> ActivityDao::listActive()
 {
     db::PreparedStatement statement(

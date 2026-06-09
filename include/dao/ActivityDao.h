@@ -18,6 +18,7 @@ public:
 
     std::optional<model::FlashSaleActivity> findById(std::uint64_t id);
     std::optional<model::FlashSaleActivity> findByActivityNo(std::string_view activityNo);
+    std::vector<model::FlashSaleActivity> listAll();
     std::vector<model::FlashSaleActivity> listActive();
     std::uint64_t create(const model::CreateFlashSaleActivity& input);
     bool deductOne(std::uint64_t activityId);

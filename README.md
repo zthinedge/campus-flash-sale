@@ -50,6 +50,7 @@ config/        配置示例；真实配置不提交
 ```
 
 DAO 分层、预处理语句和事务连接复用说明见 `docs/dao-design.md`。
+业务用例、权限和事务边界说明见 `docs/service-design.md`。
 
 ## 编译运行
 

@@ -47,6 +47,17 @@ std::optional<model::Order> OrderDao::findByOrderNo(std::string_view orderNo)
     return rows.empty() ? std::nullopt : std::optional<model::Order>(mapOrder(rows.front()));
 }
 
+std::optional<model::Order> OrderDao::findByActivityAndUser(
+    std::uint64_t activityId, std::uint64_t userId)
+{
+    db::PreparedStatement statement(
+        connection_,
+        std::string("SELECT ") + orderColumns
+            + " FROM orders WHERE activity_id = ? AND user_id = ?");
+    const auto rows = statement.query(db::SqlParams { activityId, userId });
+    return rows.empty() ? std::nullopt : std::optional<model::Order>(mapOrder(rows.front()));
+}
+
 std::vector<model::Order> OrderDao::findByUserId(std::uint64_t userId)
 {
     db::PreparedStatement statement(

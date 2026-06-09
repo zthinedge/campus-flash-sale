@@ -1,5 +1,7 @@
 #include "db/PreparedStatement.h"
 
+#include "db/MySqlError.h"
+
 #include <algorithm>
 #include <charconv>
 #include <cstring>
@@ -14,11 +16,16 @@ namespace campus::db
 namespace
 {
 
-std::runtime_error statementError(MYSQL_STMT* statement, const std::string& operation)
+MySqlError statementError(MYSQL_STMT* statement, const std::string& operation)
 {
-    const char* message =
-        statement == nullptr ? "MySQL statement handle is null" : mysql_stmt_error(statement);
-    return std::runtime_error(operation + " failed: " + message);
+    if (statement == nullptr)
+    {
+        return MySqlError(0, "", operation + " failed: MySQL statement handle is null");
+    }
+    return MySqlError(
+        mysql_stmt_errno(statement),
+        mysql_stmt_sqlstate(statement),
+        operation + " failed: " + mysql_stmt_error(statement));
 }
 
 template <typename Integer>

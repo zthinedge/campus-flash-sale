@@ -92,4 +92,15 @@ std::uint64_t ProductDao::create(const model::CreateProduct& input)
     return result.insertId;
 }
 
+bool ProductDao::updateStatus(std::uint64_t productId, model::ProductStatus status)
+{
+    db::PreparedStatement statement(
+        connection_, "UPDATE products SET status = ? WHERE id = ?");
+    const auto result = statement.execute(db::SqlParams {
+        std::string(model::toString(status)),
+        productId
+    });
+    return result.affectedRows == 1;
+}
+
 } // namespace campus::dao

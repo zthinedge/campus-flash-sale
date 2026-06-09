@@ -1,5 +1,7 @@
 #include "db/MySqlConnection.h"
 
+#include "db/MySqlError.h"
+
 #include <memory>
 #include <stdexcept>
 #include <utility>
@@ -10,10 +12,14 @@ namespace campus::db
 namespace
 {
 
-std::runtime_error mysqlError(MYSQL* handle, const std::string& operation)
+MySqlError mysqlError(MYSQL* handle, const std::string& operation)
 {
-    const char* message = handle == nullptr ? "MySQL handle is null" : mysql_error(handle);
-    return std::runtime_error(operation + " failed: " + message);
+    if (handle == nullptr)
+    {
+        return MySqlError(0, "", operation + " failed: MySQL handle is null");
+    }
+    return MySqlError(
+        mysql_errno(handle), mysql_sqlstate(handle), operation + " failed: " + mysql_error(handle));
 }
 
 } // namespace

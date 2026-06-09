@@ -56,4 +56,18 @@ if(DEFINED CAMPUS_TEST_CONFIG)
         NAME dao_mysql_integration
         COMMAND dao_integration_test "${CAMPUS_TEST_CONFIG}"
     )
+
+    add_executable(service_integration_test
+        service_integration_test.cpp
+    )
+
+    target_link_libraries(service_integration_test
+        PRIVATE
+            campus_core
+    )
+
+    add_test(
+        NAME service_mysql_integration
+        COMMAND service_integration_test "${CAMPUS_TEST_CONFIG}"
+    )
 endif()
