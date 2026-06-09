@@ -28,6 +28,7 @@ public:
     unsigned long long affectedRows() const;
 
 private:
+    friend class PreparedStatement;
     friend class Transaction;
 
     void close() noexcept;

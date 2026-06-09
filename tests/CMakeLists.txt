@@ -42,4 +42,18 @@ if(DEFINED CAMPUS_TEST_CONFIG)
         NAME transaction_raii_mysql
         COMMAND transaction_test "${CAMPUS_TEST_CONFIG}"
     )
+
+    add_executable(dao_integration_test
+        dao_integration_test.cpp
+    )
+
+    target_link_libraries(dao_integration_test
+        PRIVATE
+            campus_core
+    )
+
+    add_test(
+        NAME dao_mysql_integration
+        COMMAND dao_integration_test "${CAMPUS_TEST_CONFIG}"
+    )
 endif()

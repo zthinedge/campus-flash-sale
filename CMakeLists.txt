@@ -21,8 +21,15 @@ find_library(MYSQLCLIENT_LIBRARY
 )
 
 add_library(campus_core STATIC
+    src/dao/ActivityDao.cpp
+    src/dao/InventoryLogDao.cpp
+    src/dao/OrderDao.cpp
+    src/dao/ProductDao.cpp
+    src/dao/UserDao.cpp
     src/db/MySqlConnection.cpp
+    src/db/PreparedStatement.cpp
     src/db/Transaction.cpp
+    src/model/Enums.cpp
     src/utils/Config.cpp
 )
 
