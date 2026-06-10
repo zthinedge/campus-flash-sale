@@ -28,6 +28,25 @@ add_test(
     COMMAND config_test
 )
 
+add_executable(web_assets_test
+    web_assets_test.cpp
+)
+
+target_link_libraries(web_assets_test
+    PRIVATE
+        campus_core
+)
+
+target_compile_definitions(web_assets_test
+    PRIVATE
+        CAMPUS_WEB_ROOT="${PROJECT_SOURCE_DIR}/web"
+)
+
+add_test(
+    NAME web_assets_and_http_protocol
+    COMMAND web_assets_test
+)
+
 if(DEFINED CAMPUS_TEST_CONFIG)
     add_executable(transaction_test
         transaction_test.cpp
@@ -69,5 +88,33 @@ if(DEFINED CAMPUS_TEST_CONFIG)
     add_test(
         NAME service_mysql_integration
         COMMAND service_integration_test "${CAMPUS_TEST_CONFIG}"
+    )
+
+    add_executable(cli_smoke_test
+        cli_smoke_test.cpp
+    )
+
+    target_link_libraries(cli_smoke_test
+        PRIVATE
+            campus_core
+    )
+
+    add_test(
+        NAME cli_mysql_smoke
+        COMMAND cli_smoke_test "${CAMPUS_TEST_CONFIG}"
+    )
+
+    add_executable(flash_sale_concurrency_test
+        flash_sale_concurrency_test.cpp
+    )
+
+    target_link_libraries(flash_sale_concurrency_test
+        PRIVATE
+            campus_core
+    )
+
+    add_test(
+        NAME flash_sale_mysql_concurrency
+        COMMAND flash_sale_concurrency_test "${CAMPUS_TEST_CONFIG}"
     )
 endif()

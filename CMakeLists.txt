@@ -12,6 +12,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(nlohmann_json 3.10 REQUIRED)
 find_package(OpenSSL REQUIRED)
+find_package(Threads REQUIRED)
 find_path(MYSQL_INCLUDE_DIR
     NAMES mysql/mysql.h
     REQUIRED
@@ -22,6 +23,8 @@ find_library(MYSQLCLIENT_LIBRARY
 )
 
 add_library(campus_core STATIC
+    src/app/CliApp.cpp
+    src/app/WebApp.cpp
     src/dao/ActivityDao.cpp
     src/dao/InventoryLogDao.cpp
     src/dao/OrderDao.cpp
@@ -31,7 +34,19 @@ add_library(campus_core STATIC
     src/db/MySqlError.cpp
     src/db/PreparedStatement.cpp
     src/db/Transaction.cpp
+    src/http/HttpRequest.cpp
+    src/http/HttpResponse.cpp
+    src/http/HttpServer.cpp
     src/model/Enums.cpp
+    src/net/Acceptor.cpp
+    src/net/Buffer.cpp
+    src/net/Channel.cpp
+    src/net/Epoll.cpp
+    src/net/EventLoop.cpp
+    src/net/InetAddress.cpp
+    src/net/Socket.cpp
+    src/net/TcpConnection.cpp
+    src/net/TcpServer.cpp
     src/service/ActivityService.cpp
     src/service/AdminService.cpp
     src/service/AuthService.cpp
@@ -54,6 +69,7 @@ target_link_libraries(campus_core
         "${MYSQLCLIENT_LIBRARY}"
         nlohmann_json::nlohmann_json
         OpenSSL::Crypto
+        Threads::Threads
 )
 
 target_compile_options(campus_core
@@ -70,6 +86,11 @@ add_executable(campus_flash_sale
 target_link_libraries(campus_flash_sale
     PRIVATE
         campus_core
+)
+
+target_compile_definitions(campus_flash_sale
+    PRIVATE
+        CAMPUS_WEB_ROOT="${CMAKE_CURRENT_SOURCE_DIR}/web"
 )
 
 target_compile_options(campus_flash_sale

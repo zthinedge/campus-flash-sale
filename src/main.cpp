@@ -1,3 +1,5 @@
+#include "app/CliApp.h"
+#include "app/WebApp.h"
 #include "db/MySqlConnection.h"
 #include "db/Transaction.h"
 #include "utils/Config.h"
@@ -9,21 +11,43 @@
 
 int main(int argc, char* argv[])
 {
+    enum class RunMode
+    {
+        Web,
+        Cli,
+        CheckConfig
+    };
+
+    RunMode mode = RunMode::Web;
     bool checkConfigOnly = false;
     std::filesystem::path configPath = "config/config.json";
 
     if (argc == 2)
     {
-        configPath = argv[1];
+        if (std::string_view(argv[1]) == "--cli")
+        {
+            mode = RunMode::Cli;
+        }
+        else
+        {
+            configPath = argv[1];
+        }
+    }
+    else if (argc == 3 && std::string_view(argv[1]) == "--cli")
+    {
+        mode = RunMode::Cli;
+        configPath = argv[2];
     }
     else if (argc == 3 && std::string_view(argv[1]) == "--check-config")
     {
+        mode = RunMode::CheckConfig;
         checkConfigOnly = true;
         configPath = argv[2];
     }
     else if (argc > 1)
     {
         std::cerr << "Usage: " << argv[0] << " [config_path]\n"
+                  << "       " << argv[0] << " --cli [config_path]\n"
                   << "       " << argv[0] << " --check-config <config_path>\n";
         return 2;
     }
@@ -69,7 +93,14 @@ int main(int argc, char* argv[])
         }
 
         std::cout << "[INFO] MySQL transaction wrapper verified" << '\n';
-        return 0;
+        if (mode == RunMode::Cli)
+        {
+            campus::app::CliApp app(connection, std::cin, std::cout);
+            return app.run();
+        }
+
+        campus::app::WebApp app(connection, config, CAMPUS_WEB_ROOT);
+        return app.run();
     }
     catch (const std::exception& error)
     {

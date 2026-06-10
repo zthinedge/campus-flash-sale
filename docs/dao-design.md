@@ -116,9 +116,9 @@ transaction.commit();
 
 若中途抛出异常或提前返回，`Transaction` 析构时回滚该连接上的整个事务。
 
-## 5. 下一层调用方式
+## 5. Service 调用方式
 
-后续 `FlashSaleService` 负责：
+当前 `FlashSaleService` 负责：
 
 1. 查询用户和活动。
 2. 开启事务。
