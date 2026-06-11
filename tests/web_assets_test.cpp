@@ -28,11 +28,19 @@ int main()
     const std::string javascript = readFile(webRoot / "app.js");
     const std::string css = readFile(webRoot / "styles.css");
 
-    assert(html.find("Campus Flash Sale") != std::string::npos);
+    assert(html.find("校园闲置限时购") != std::string::npos);
     assert(html.find("id=\"saleGrid\"") != std::string::npos);
+    assert(html.find("id=\"detailModal\"") != std::string::npos);
+    assert(html.find("id=\"purchaseModal\"") != std::string::npos);
+    assert(html.find("C++") == std::string::npos);
+    assert(html.find("MySQL") == std::string::npos);
+    assert(html.find("io_uring") == std::string::npos);
+    assert(html.find("DAO") == std::string::npos);
     assert(javascript.find("/api/activities") != std::string::npos);
-    assert(javascript.find("async function purchase") != std::string::npos);
+    assert(javascript.find("async function confirmPurchase") != std::string::npos);
+    assert(javascript.find("function openProductDetail") != std::string::npos);
     assert(css.find(".sale-grid") != std::string::npos);
+    assert(css.find(".detail-modal") != std::string::npos);
     assert(css.find("@media") != std::string::npos);
 
     const std::string body = R"({"username":"student01","password":"123456"})";

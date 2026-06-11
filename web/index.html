@@ -3,114 +3,116 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Campus Flash Sale | 校园限时交易系统</title>
-  <link rel="stylesheet" href="/styles.css?v=20260610">
+  <meta name="theme-color" content="#111a2b">
+  <title>闪集 | 校园闲置限时购</title>
+  <link rel="stylesheet" href="/styles.css?v=20260611">
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark">CF</div>
+        <div class="brand-mark">闪集</div>
         <div>
-          <strong>Campus Flash</strong>
-          <span>校园限时交易系统</span>
+          <strong>闪集</strong>
+          <span>校园闲置限时购</span>
         </div>
       </div>
 
       <nav class="nav-list">
         <button class="nav-item active" data-view="overview">
-          <span class="nav-code">01</span><span>系统总览</span>
+          <span class="nav-code">01</span><span>发现</span>
         </button>
         <button class="nav-item" data-view="market">
-          <span class="nav-code">02</span><span>限时抢购</span>
+          <span class="nav-code">02</span><span>抢购大厅</span>
         </button>
         <button class="nav-item auth-only" data-view="orders">
           <span class="nav-code">03</span><span>我的订单</span>
         </button>
         <button class="nav-item admin-only" data-view="admin">
-          <span class="nav-code">04</span><span>管理看板</span>
+          <span class="nav-code">04</span><span>活动管理</span>
         </button>
       </nav>
 
       <div class="database-card">
-        <span>DATABASE STATUS</span>
-        <div><i id="dbDot"></i><strong id="dbStatus">连接检测中</strong></div>
-        <small>MySQL 5.7 / InnoDB</small>
+        <span>平台状态</span>
+        <div><i id="serviceDot"></i><strong id="serviceStatus">正在连接</strong></div>
+        <small>商品与订单实时更新</small>
       </div>
 
       <div class="account-card">
         <div class="account-row">
           <span class="avatar" id="avatar">访</span>
           <div>
-            <strong id="currentUser">访客模式</strong>
-            <small id="currentRole">浏览公开活动</small>
+            <strong id="currentUser">欢迎来到闪集</strong>
+            <small id="currentRole">登录后参与限时抢购</small>
           </div>
         </div>
         <button id="openAuthBtn" class="wide-button">登录 / 注册</button>
         <button id="logoutBtn" class="wide-button ghost hidden">退出登录</button>
-        <p>管理员：<b>admin / admin123</b><br>学生：<b>student01 / 123456</b></p>
+        <p>每场活动限购一件<br>下单成功后可在“我的订单”查看</p>
       </div>
     </aside>
 
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">C++ DATABASE COURSE PROJECT</p>
-          <h1 id="pageTitle">系统总览</h1>
+          <p class="eyebrow">校园闲置 · 限时好价</p>
+          <h1 id="pageTitle">发现</h1>
         </div>
         <div class="topbar-actions">
           <span class="clock" id="clock"></span>
-          <button id="publishBtn" class="auth-only secondary-button">发布商品</button>
-          <button id="refreshBtn" class="icon-button">刷新数据</button>
+          <button id="publishBtn" class="auth-only secondary-button">发布闲置</button>
+          <button id="refreshBtn" class="icon-button">刷新</button>
         </div>
       </header>
 
       <section class="view active" id="view-overview">
         <article class="hero">
           <div class="hero-copy">
-            <span class="hero-label">TRANSACTION CONSISTENCY</span>
-            <h2>高并发校园限时交易<br>从页面到数据库完整闭环</h2>
-            <p>前端请求真实进入 C++ HTTP 服务，经过 Service / DAO，在 MySQL 事务中原子完成库存扣减、订单创建与库存流水写入。</p>
+            <span class="hero-label">校园好物限时上新</span>
+            <h2>让闲置遇见需要它的人</h2>
+            <p>教材、数码、骑行装备和宿舍好物都能在这里流转。登录后参与限时抢购，也可以发布自己的校园闲置。</p>
             <div class="hero-actions">
-              <button data-jump="market">进入抢购大厅</button>
-              <button class="hero-ghost" id="heroLoginBtn">登录体验</button>
+              <button data-jump="market">去逛抢购</button>
+              <button class="hero-ghost" id="heroLoginBtn">登录闪集</button>
             </div>
           </div>
-          <div class="consistency-card">
-            <div class="consistency-head"><span>一致性防线</span><b>ONLINE</b></div>
-            <div class="flow-step"><i>1</i><span>条件更新扣减库存</span><code>stock &gt; 0</code></div>
-            <div class="flow-line"></div>
-            <div class="flow-step"><i>2</i><span>唯一索引防重复</span><code>activity + user</code></div>
-            <div class="flow-line"></div>
-            <div class="flow-step"><i>3</i><span>RAII 自动回滚</span><code>Transaction</code></div>
+          <div class="assurance-card">
+            <div class="assurance-head"><span>安心抢购</span><b>进行中</b></div>
+            <div class="assurance-item"><i>1</i><div><strong>每人限购一件</strong><span>同一场活动不重复下单</span></div></div>
+            <div class="assurance-item"><i>2</i><div><strong>库存实时更新</strong><span>抢到后立即锁定名额</span></div></div>
+            <div class="assurance-item"><i>3</i><div><strong>失败不产生订单</strong><span>售罄时会清楚提示结果</span></div></div>
           </div>
         </article>
 
-        <div class="metrics" id="overviewMetrics"></div>
+        <div class="metrics" id="overviewMetrics">
+          <article class="metric skeleton-card"></article>
+          <article class="metric skeleton-card"></article>
+          <article class="metric skeleton-card"></article>
+          <article class="metric skeleton-card"></article>
+        </div>
 
         <div class="overview-grid">
           <article class="panel activity-panel">
             <div class="panel-head">
-              <div><p class="eyebrow">LIVE ACTIVITIES</p><h3>正在进行的限时活动</h3></div>
+              <div><p class="eyebrow">限时精选</p><h3>正在抢购</h3></div>
               <button class="text-button" data-jump="market">查看全部</button>
             </div>
-            <div class="activity-list" id="overviewActivities"></div>
+            <div class="activity-list" id="overviewActivities">
+              <div class="skeleton-row"></div>
+              <div class="skeleton-row"></div>
+              <div class="skeleton-row"></div>
+            </div>
           </article>
 
-          <article class="panel architecture-panel">
+          <article class="panel guide-panel">
             <div class="panel-head">
-              <div><p class="eyebrow">SYSTEM ARCHITECTURE</p><h3>请求处理链路</h3></div>
+              <div><p class="eyebrow">简单三步</p><h3>开始校园交易</h3></div>
             </div>
-            <div class="architecture-flow">
-              <div><b>WEB</b><span>HTML / JS</span></div><i>→</i>
-              <div><b>HTTP</b><span>epoll Reactor</span></div><i>→</i>
-              <div><b>SERVICE</b><span>业务与事务</span></div><i>→</i>
-              <div><b>DAO</b><span>Prepared SQL</span></div><i>→</i>
-              <div><b>MYSQL</b><span>InnoDB</span></div>
-            </div>
-            <div class="tech-tags">
-              <span>C++20</span><span>epoll</span><span>MySQL C API</span>
-              <span>RAII</span><span>PreparedStatement</span><span>Unique Index</span>
+            <div class="guide-list">
+              <div><i>01</i><span><strong>浏览好物</strong><small>查看价格、成色与剩余数量</small></span></div>
+              <div><i>02</i><span><strong>登录抢购</strong><small>确认商品后提交抢购订单</small></span></div>
+              <div><i>03</i><span><strong>查看订单</strong><small>在个人中心确认抢购结果</small></span></div>
             </div>
           </article>
         </div>
@@ -118,37 +120,37 @@
 
       <section class="view" id="view-market">
         <div class="section-banner">
-          <div><p class="eyebrow">FLASH SALE MARKET</p><h2>校园好物，限时开抢</h2><span>每位用户在同一活动中只能成功下单一次</span></div>
+          <div><p class="eyebrow">今日限时好价</p><h2>校园好物，限时开抢</h2><span>看准就下单，每位用户在同一场活动中限购一件</span></div>
           <div class="banner-stat"><strong id="activeCount">0</strong><span>场活动进行中</span></div>
         </div>
 
         <div class="toolbar">
-          <div class="search-box"><input id="marketSearch" placeholder="搜索商品名称或活动编号"></div>
+          <div class="search-box"><input id="marketSearch" placeholder="搜索商品名称或描述"></div>
           <select id="stockFilter">
             <option value="ALL">全部活动</option>
-            <option value="AVAILABLE">仅看有货</option>
-            <option value="SOLD_OUT">已售罄</option>
+            <option value="AVAILABLE">还有库存</option>
+            <option value="SOLD_OUT">已经售罄</option>
           </select>
         </div>
         <div class="sale-grid" id="saleGrid"></div>
 
         <div class="section-title">
-          <div><p class="eyebrow">ALL PRODUCTS</p><h2>校园商品库</h2></div>
-          <span>商品发布后可由管理员创建限时活动</span>
+          <div><p class="eyebrow">更多校园闲置</p><h2>全部商品</h2></div>
+          <span>点击商品卡片查看完整介绍</span>
         </div>
         <div class="product-grid" id="productGrid"></div>
       </section>
 
       <section class="view" id="view-orders">
         <div class="section-title">
-          <div><p class="eyebrow">ORDER CENTER</p><h2>我的订单</h2></div>
+          <div><p class="eyebrow">个人中心</p><h2>我的订单</h2></div>
           <span id="orderCount">0 条交易记录</span>
         </div>
         <article class="panel table-panel">
           <div class="table-wrap">
             <table>
               <thead>
-                <tr><th>订单编号</th><th>商品</th><th>活动 ID</th><th>成交金额</th><th>状态</th><th>创建时间</th></tr>
+                <tr><th>订单编号</th><th>商品</th><th>成交价格</th><th>数量</th><th>订单状态</th><th>下单时间</th></tr>
               </thead>
               <tbody id="ordersTable"></tbody>
             </table>
@@ -158,19 +160,19 @@
 
       <section class="view" id="view-admin">
         <div class="admin-hero">
-          <div><p class="eyebrow">ADMIN CONSOLE</p><h2>活动与库存一致性看板</h2><span>对比库存、订单和库存流水，快速发现数据不一致</span></div>
-          <button id="createActivityBtn">创建限时活动</button>
+          <div><p class="eyebrow">活动管理</p><h2>限时活动运营中心</h2><span>查看活动库存和成交情况，为新发布的商品创建活动</span></div>
+          <button id="createActivityBtn">创建新活动</button>
         </div>
         <div class="metrics admin-metrics" id="adminMetrics"></div>
         <article class="panel table-panel">
           <div class="panel-head">
-            <div><p class="eyebrow">AUDIT VIEW</p><h3>活动一致性审计</h3></div>
-            <span class="audit-note">订单数应与扣减流水数一致</span>
+            <div><p class="eyebrow">活动概况</p><h3>全部限时活动</h3></div>
+            <span class="audit-note">库存与成交情况实时更新</span>
           </div>
           <div class="table-wrap">
             <table>
               <thead>
-                <tr><th>活动</th><th>商品</th><th>库存</th><th>订单数</th><th>库存流水</th><th>一致性</th><th>状态</th></tr>
+                <tr><th>商品</th><th>活动时间</th><th>剩余数量</th><th>成交订单</th><th>库存记录</th><th>记录状态</th><th>活动状态</th></tr>
               </thead>
               <tbody id="adminTable"></tbody>
             </table>
@@ -182,29 +184,38 @@
 
   <div class="modal-backdrop hidden" id="authModal">
     <div class="modal auth-modal">
-      <button class="modal-close" data-close="authModal">×</button>
-      <p class="eyebrow">ACCOUNT ACCESS</p>
-      <h2>登录校园交易系统</h2>
-      <p class="modal-copy">登录后可以参与抢购、发布商品并查看个人订单。</p>
-      <label>用户名<input id="username" autocomplete="username" value="student01"></label>
-      <label>密码<input id="password" type="password" autocomplete="current-password" value="123456"></label>
+      <button class="modal-close" data-close="authModal" aria-label="关闭">×</button>
+      <p class="eyebrow">欢迎来到闪集</p>
+      <h2>登录或注册账号</h2>
+      <p class="modal-copy">登录后可以参与抢购、发布闲置并查看个人订单。</p>
+      <div class="demo-accounts">
+        <button class="demo-account" data-action="use-demo" data-username="student01" data-password="123456">
+          <strong>学生体验</strong><span>浏览、抢购和发布商品</span>
+        </button>
+        <button class="demo-account" data-action="use-demo" data-username="admin" data-password="admin123">
+          <strong>管理员体验</strong><span>创建和查看限时活动</span>
+        </button>
+      </div>
+      <label>用户名<input id="username" autocomplete="username" placeholder="请输入用户名"></label>
+      <label>密码<input id="password" type="password" autocomplete="current-password" placeholder="请输入密码"></label>
+      <p class="form-hint">新用户的用户名不少于 3 位，密码不少于 4 位。</p>
       <div class="modal-actions">
         <button id="loginBtn">登录</button>
-        <button id="registerBtn" class="secondary-button">注册新用户</button>
+        <button id="registerBtn" class="secondary-button">注册并登录</button>
       </div>
     </div>
   </div>
 
   <div class="modal-backdrop hidden" id="productModal">
     <div class="modal form-modal">
-      <button class="modal-close" data-close="productModal">×</button>
-      <p class="eyebrow">PUBLISH PRODUCT</p>
-      <h2>发布校园闲置商品</h2>
+      <button class="modal-close" data-close="productModal" aria-label="关闭">×</button>
+      <p class="eyebrow">发布闲置</p>
+      <h2>让好物继续发挥价值</h2>
+      <p class="modal-copy">填写清楚商品名称、价格和成色情况，更容易找到需要它的人。</p>
       <div class="form-grid">
-        <label>商品编号<input id="productNo" placeholder="例如 PROD-LAMP-001"></label>
-        <label>商品名称<input id="productTitle" placeholder="例如 宿舍护眼台灯"></label>
-        <label>原价（元）<input id="productPrice" type="number" min="0.01" step="0.01" value="59"></label>
-        <label class="full">商品描述<textarea id="productDescription" placeholder="描述成色、使用情况和交易说明"></textarea></label>
+        <label>商品名称<input id="productTitle" maxlength="128" placeholder="例如 宿舍护眼台灯"></label>
+        <label>期望价格（元）<input id="productPrice" type="number" min="0.01" step="0.01" placeholder="59.00"></label>
+        <label class="full">商品描述<textarea id="productDescription" maxlength="1000" placeholder="描述成色、使用情况和交易说明"></textarea></label>
       </div>
       <div class="modal-actions"><button id="saveProductBtn">确认发布</button></div>
     </div>
@@ -212,22 +223,79 @@
 
   <div class="modal-backdrop hidden" id="activityModal">
     <div class="modal form-modal">
-      <button class="modal-close" data-close="activityModal">×</button>
-      <p class="eyebrow">CREATE ACTIVITY</p>
-      <h2>创建限时抢购活动</h2>
+      <button class="modal-close" data-close="activityModal" aria-label="关闭">×</button>
+      <p class="eyebrow">创建活动</p>
+      <h2>设置限时抢购</h2>
+      <p class="modal-copy">只有尚未参加活动的在售商品可以创建新的限时抢购。</p>
       <div class="form-grid">
-        <label>活动编号<input id="activityNo" placeholder="例如 ACT-LAMP-001"></label>
         <label>选择商品<select id="activityProduct"></select></label>
-        <label>抢购价（元）<input id="flashPrice" type="number" min="0.01" step="0.01" value="39"></label>
-        <label>活动库存<input id="activityStock" type="number" min="1" value="10"></label>
+        <label>抢购价（元）<input id="flashPrice" type="number" min="0.01" step="0.01" placeholder="39.00"></label>
+        <label>活动数量<input id="activityStock" type="number" min="1" value="10"></label>
         <label>开始时间<input id="startTime" type="datetime-local"></label>
         <label>结束时间<input id="endTime" type="datetime-local"></label>
       </div>
+      <p class="form-hint" id="activityHint"></p>
       <div class="modal-actions"><button id="saveActivityBtn">创建活动</button></div>
     </div>
   </div>
 
+  <div class="modal-backdrop hidden" id="detailModal">
+    <div class="modal detail-modal">
+      <button class="modal-close" data-close="detailModal" aria-label="关闭">×</button>
+      <div class="detail-cover" id="detailCover"><span id="detailCoverText">好物</span></div>
+      <div class="detail-body">
+        <div class="detail-heading">
+          <span class="status-tag" id="detailStatus">在售</span>
+          <span id="detailTime"></span>
+        </div>
+        <h2 id="detailTitle"></h2>
+        <p id="detailDescription"></p>
+        <div class="detail-prices">
+          <strong id="detailPrice"></strong>
+          <del id="detailOriginalPrice"></del>
+        </div>
+        <div class="detail-facts">
+          <div><span>剩余数量</span><strong id="detailStock"></strong></div>
+          <div><span>发布状态</span><strong id="detailProductStatus"></strong></div>
+        </div>
+        <button id="detailPrimaryBtn" class="detail-primary">立即抢购</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="purchaseModal">
+    <div class="modal purchase-modal">
+      <button class="modal-close" data-close="purchaseModal" aria-label="关闭">×</button>
+      <p class="eyebrow">确认抢购</p>
+      <h2 id="purchaseTitle">确认商品信息</h2>
+      <div class="purchase-summary">
+        <div><span>抢购商品</span><strong id="purchaseProduct"></strong></div>
+        <div><span>成交价格</span><strong class="purchase-price" id="purchasePrice"></strong></div>
+        <div><span>购买数量</span><strong>1 件</strong></div>
+        <div><span>当前剩余</span><strong id="purchaseStock"></strong></div>
+      </div>
+      <p class="purchase-note">确认后将立即尝试下单。若活动已售罄，系统不会生成订单。</p>
+      <div class="modal-actions">
+        <button class="secondary-button" data-close="purchaseModal">再想想</button>
+        <button id="confirmPurchaseBtn">确认抢购</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="successModal">
+    <div class="modal success-modal">
+      <div class="success-mark">成功</div>
+      <h2>抢购成功</h2>
+      <p>商品已经为你生成订单，可前往“我的订单”查看。</p>
+      <div class="success-order"><span>订单编号</span><code id="successOrderNo"></code></div>
+      <div class="modal-actions">
+        <button class="secondary-button" data-action="continue-shopping">继续逛逛</button>
+        <button data-action="go-orders">查看订单</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
-  <script src="/app.js?v=20260610"></script>
+  <script src="/app.js?v=20260611"></script>
 </body>
 </html>
